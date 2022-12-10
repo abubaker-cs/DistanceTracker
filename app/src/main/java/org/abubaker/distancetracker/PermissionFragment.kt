@@ -89,7 +89,10 @@ class PermissionFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             SettingsDialog.Builder(requireContext()).build().show()
 
         } else {
+
+            // Ask the user to grant permissions
             requestLocationPermission(this)
+
         }
     }
 
