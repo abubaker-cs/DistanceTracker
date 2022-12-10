@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import org.abubaker.distancetracker.databinding.FragmentPermissionBinding
-import org.abubaker.distancetracker.misc.Permissions.hasLocationPermission
-import org.abubaker.distancetracker.misc.Permissions.requestLocationPermission
+import org.abubaker.distancetracker.util.Permissions.hasLocationPermission
+import org.abubaker.distancetracker.util.Permissions.requestLocationPermission
 
 class PermissionFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
@@ -115,7 +115,7 @@ class PermissionFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        // Set the binding to null
+        // Set the binding to null, to avoid memory leaks
         _binding = null
 
     }

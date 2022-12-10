@@ -1,4 +1,4 @@
-package org.abubaker.distancetracker.misc
+package org.abubaker.distancetracker.util
 
 object Constants {
 

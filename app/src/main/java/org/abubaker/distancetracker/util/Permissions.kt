@@ -1,9 +1,9 @@
-package org.abubaker.distancetracker.misc
+package org.abubaker.distancetracker.util
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.vmadalin.easypermissions.EasyPermissions
-import org.abubaker.distancetracker.misc.Constants.PERMISSION_LOCATION_REQUEST_CODE
+import org.abubaker.distancetracker.util.Constants.PERMISSION_LOCATION_REQUEST_CODE
 
 object Permissions {
 

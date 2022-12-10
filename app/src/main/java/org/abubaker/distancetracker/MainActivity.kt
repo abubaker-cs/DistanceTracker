@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import org.abubaker.distancetracker.databinding.ActivityMainBinding
-import org.abubaker.distancetracker.misc.Permissions.hasLocationPermission
+import org.abubaker.distancetracker.util.Permissions.hasLocationPermission
 
 class MainActivity : AppCompatActivity() {
 
