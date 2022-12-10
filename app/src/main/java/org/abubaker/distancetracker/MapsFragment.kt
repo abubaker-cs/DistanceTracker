@@ -31,6 +31,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         // Specify the current activity as the lifecycle owner
         binding.lifecycleOwner = this
 
+        binding.apply {
+
+            // Button: Start
+            btnStart.setOnClickListener {
+
+            }
+
+            // Button: Stop
+            btnStop.setOnClickListener {
+
+            }
+
+            // Button: Reset
+            btnReset.setOnClickListener {
+
+            }
+
+
+        }
+
         return binding.root
 
     }
