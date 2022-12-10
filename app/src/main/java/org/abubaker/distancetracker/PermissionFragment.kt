@@ -26,6 +26,10 @@ class PermissionFragment : Fragment() {
         // Specify the current activity as the lifecycle owner
         binding.lifecycleOwner = this
 
+
+
+
+
         return binding.root
 
     }
