@@ -8,15 +8,12 @@ import org.abubaker.distancetracker.misc.Constants.PERMISSION_LOCATION_REQUEST_C
 object Permissions {
 
     // Function to check if we have the permission
-    fun hasLocationPermission(context: Context) {
+    fun hasLocationPermission(context: Context) = EasyPermissions.hasPermissions(
+        context,
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION
+    )
 
-        // We are checking if the user has granted the permission or not
-        EasyPermissions.hasPermissions(
-            context,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-    }
 
     // Function to request the permission
     fun requestLocationPermission(fragment: Fragment) {
