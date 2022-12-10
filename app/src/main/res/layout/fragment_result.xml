@@ -15,6 +15,7 @@
         tools:context=".ResultFragment"
         >
 
+        <!-- Label: Distance -->
         <TextView
             android:id="@+id/distance_textView"
             android:layout_width="wrap_content"
@@ -26,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
+        <!-- Travelled Distance: 0.0km -->
         <TextView
             android:id="@+id/distanceValue_textView"
             android:layout_width="wrap_content"
@@ -39,6 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/distance_textView"
             />
 
+        <!-- Label: Time -->
         <TextView
             android:id="@+id/time_textView"
             android:layout_width="wrap_content"
@@ -50,6 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/distanceValue_textView"
             />
 
+        <!-- Time Counter -->
         <TextView
             android:id="@+id/timeValue_textView"
             android:layout_width="wrap_content"
@@ -63,6 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/time_textView"
             />
 
+        <!-- Button: Share -->
         <Button
             android:id="@+id/share_button"
             android:layout_width="wrap_content"
