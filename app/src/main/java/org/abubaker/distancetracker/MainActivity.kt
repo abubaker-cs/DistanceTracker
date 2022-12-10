@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import org.abubaker.distancetracker.databinding.ActivityMainBinding
+import org.abubaker.distancetracker.misc.Permissions.hasLocationPermission
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +26,15 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
 
+        // Get the Navigation Controller
         val navController = navHostFragment.navController
+
+        // Check if we have the permissions, then navigate to the main fragment
+        if (hasLocationPermission(this)) {
+
+            // Navigate to the Tracking Fragment
+            navController.navigate(R.id.action_permissionFragment_to_mapsFragment)
+        }
 
 
     }
