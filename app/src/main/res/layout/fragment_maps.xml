@@ -5,6 +5,11 @@
 
     <data>
 
+        <variable
+            name="tracking"
+            type="org.abubaker.distancetracker.MapsFragment"
+            />
+
     </data>
 
     <androidx.fragment.app.FragmentContainerView
@@ -14,4 +19,5 @@
         android:layout_height="match_parent"
         tools:context=".MapsFragment"
         />
+
 </layout>
