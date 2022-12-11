@@ -143,9 +143,7 @@ class MapsFragment : Fragment(),
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-
         onStartButtonClicked()
-
     }
 
     override fun onDestroyView() {
