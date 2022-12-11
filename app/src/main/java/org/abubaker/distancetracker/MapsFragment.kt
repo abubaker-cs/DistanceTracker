@@ -7,15 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.Polyline
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.abubaker.distancetracker.databinding.FragmentMapsBinding
+import org.abubaker.distancetracker.util.ExtensionFunctions.disable
 import org.abubaker.distancetracker.util.ExtensionFunctions.hide
 import org.abubaker.distancetracker.util.ExtensionFunctions.show
 import org.abubaker.distancetracker.util.Permissions.hasBackgroundLocationPermission
@@ -23,7 +30,8 @@ import org.abubaker.distancetracker.util.Permissions.requestBackgroundLocationPe
 
 class MapsFragment : Fragment(),
     OnMapReadyCallback,
-    GoogleMap.OnMyLocationButtonClickListener, EasyPermissions.PermissionCallbacks {
+    GoogleMap.OnMyLocationButtonClickListener,
+    EasyPermissions.PermissionCallbacks {
 
     // Binding Object: FragmentMapsBinding
     private var _binding: FragmentMapsBinding? = null
@@ -32,6 +40,17 @@ class MapsFragment : Fragment(),
     private val binding get() = _binding!!
 
     private lateinit var map: GoogleMap
+
+    val started = MutableLiveData(false)
+
+    private var startTime = 0L
+    private var stopTime = 0L
+
+    private var locationList = mutableListOf<LatLng>()
+    private var polylineList = mutableListOf<Polyline>()
+    private var markerList = mutableListOf<Marker>()
+
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,16 +73,19 @@ class MapsFragment : Fragment(),
 
             // Button: Stop
             btnStop.setOnClickListener {
-
+                onStopButtonClicked()
             }
 
             // Button: Reset
             btnReset.setOnClickListener {
-
+                onResetButtonClicked()
             }
 
-
         }
+
+        // Get the SupportMapFragment and request notification when the map is ready to be used.
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
         return binding.root
 
@@ -79,6 +101,7 @@ class MapsFragment : Fragment(),
 
         map = googlemap
 
+        // We also need to call our google map object to enable the current location button
         map.isMyLocationEnabled = true
 
         // important to enable this feature
@@ -96,14 +119,29 @@ class MapsFragment : Fragment(),
 
         }
 
+
     }
 
     private fun onStartButtonClicked() {
         if (hasBackgroundLocationPermission(requireContext())) {
             Log.d("MapsFragment", "Already Enabled")
+
+            binding.btnStart.disable()
+            binding.btnStart.hide()
+            binding.btnStop.show()
+
         } else {
             requestBackgroundLocationPermission(this)
         }
+    }
+
+    private fun onStopButtonClicked() {
+        binding.btnStop.hide()
+        binding.btnStart.show()
+    }
+
+    private fun onResetButtonClicked() {
+
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -120,25 +158,28 @@ class MapsFragment : Fragment(),
 
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
-    // Permanent Deny
+    // Permanently Denied?
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
 
-            //
-            SettingsDialog.Builder(requireContext()).build().show()
+            // Open settings dialog so user can enable permissions
+            SettingsDialog.Builder(requireActivity()).build().show()
 
         } else {
+
+            // Request permissions again
             requestBackgroundLocationPermission(this)
+
         }
     }
 
