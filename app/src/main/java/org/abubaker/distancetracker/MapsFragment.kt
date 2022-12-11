@@ -1,6 +1,7 @@
 package org.abubaker.distancetracker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,19 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.abubaker.distancetracker.databinding.FragmentMapsBinding
 import org.abubaker.distancetracker.util.ExtensionFunctions.hide
 import org.abubaker.distancetracker.util.ExtensionFunctions.show
+import org.abubaker.distancetracker.util.Permissions.hasBackgroundLocationPermission
+import org.abubaker.distancetracker.util.Permissions.requestBackgroundLocationPermission
 
-class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
+class MapsFragment : Fragment(),
+    OnMapReadyCallback,
+    GoogleMap.OnMyLocationButtonClickListener, EasyPermissions.PermissionCallbacks {
 
     // Binding Object: FragmentMapsBinding
     private var _binding: FragmentMapsBinding? = null
@@ -42,7 +49,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButto
 
             // Button: Start
             btnStart.setOnClickListener {
-
+                onStartButtonClicked()
             }
 
             // Button: Stop
@@ -91,12 +98,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButto
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        // Set the binding to null, to avoid memory leaks
-        _binding = null
-
+    private fun onStartButtonClicked() {
+        if (hasBackgroundLocationPermission(requireContext())) {
+            Log.d("MapsFragment", "Already Enabled")
+        } else {
+            requestBackgroundLocationPermission(this)
+        }
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -113,5 +120,40 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButto
 
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    // Permanent Deny
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+
+            //
+            SettingsDialog.Builder(requireContext()).build().show()
+
+        } else {
+            requestBackgroundLocationPermission(this)
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+
+        onStartButtonClicked()
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        // Set the binding to null, to avoid memory leaks
+        _binding = null
+
+    }
 
 }
