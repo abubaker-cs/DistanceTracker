@@ -9,15 +9,18 @@ import org.abubaker.distancetracker.util.Constants.PERMISSION_LOCATION_REQUEST_C
 
 object Permissions {
 
-    // Function to check if we have the permission
+    /**
+     * 01 Fine + Coarse
+     */
+
+    // Do we have the permission to access the location using Fine + Coarse?
     fun hasLocationPermission(context: Context) = EasyPermissions.hasPermissions(
         context,
         android.Manifest.permission.ACCESS_FINE_LOCATION,
         android.Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
-
-    // Function to request the permission
+    // Request the permission to access the location using Fine + Coarse
     fun requestLocationPermission(fragment: Fragment) {
 
         EasyPermissions.requestPermissions(
@@ -30,11 +33,14 @@ object Permissions {
 
     }
 
+    /**
+     * 02 Background Location
+     */
 
-    // Function to check if we have the permission
+    // Do we have the background location permission?
     fun hasBackgroundLocationPermission(context: Context): Boolean {
 
-        // Only if API LEVEL 29+
+        // If our Android has API Level 29+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             return EasyPermissions.hasPermissions(
                 context,
@@ -45,8 +51,10 @@ object Permissions {
         return true
     }
 
+    // Request the background location permission
     fun requestBackgroundLocationPermission(fragment: Fragment) {
 
+        // If our Android has API Level 29+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             EasyPermissions.requestPermissions(
                 fragment,
@@ -55,6 +63,7 @@ object Permissions {
                 android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
             )
         }
+
     }
 
 
