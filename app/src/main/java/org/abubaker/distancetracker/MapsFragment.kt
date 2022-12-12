@@ -62,7 +62,7 @@ class MapsFragment : Fragment(),
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_maps, container, false)
 
         // Specify the current activity as the lifecycle owner
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.apply {
 
@@ -97,9 +97,9 @@ class MapsFragment : Fragment(),
         mapFragment?.getMapAsync(this)
     }
 
-    override fun onMapReady(googlemap: GoogleMap) {
+    override fun onMapReady(googleMap: GoogleMap) {
 
-        map = googlemap
+        map = googleMap
 
         // We also need to call our google map object to enable the current location button
         map.isMyLocationEnabled = true
@@ -122,8 +122,12 @@ class MapsFragment : Fragment(),
 
     }
 
+    // Button: Start
     private fun onStartButtonClicked() {
+
+        // We are checking if we have background location permission
         if (hasBackgroundLocationPermission(requireContext())) {
+
             Log.d("MapsFragment", "Already Enabled")
 
             binding.btnStart.disable()
@@ -131,19 +135,26 @@ class MapsFragment : Fragment(),
             binding.btnStop.show()
 
         } else {
+
+            //  We are requesting background location permission
             requestBackgroundLocationPermission(this)
+
         }
     }
 
+    // Button: Stop
     private fun onStopButtonClicked() {
         binding.btnStop.hide()
         binding.btnStart.show()
     }
 
+
+    // Button: Reset
     private fun onResetButtonClicked() {
 
     }
 
+    // This method is called when the user clicks the My Location button on the map.
     override fun onMyLocationButtonClick(): Boolean {
 
         binding.tvHint.animate().alpha(0f).duration = 1500
@@ -158,6 +169,7 @@ class MapsFragment : Fragment(),
 
     }
 
+    // This method is called when the user has accepted (or denied) our permission request.
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -170,6 +182,7 @@ class MapsFragment : Fragment(),
     // Permanently Denied?
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
 
+        // If some permissions were permanently denied
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
 
             // Open settings dialog so user can enable permissions
@@ -183,8 +196,11 @@ class MapsFragment : Fragment(),
         }
     }
 
+    // Permission Granted
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+
         onStartButtonClicked()
+
     }
 
     override fun onDestroyView() {

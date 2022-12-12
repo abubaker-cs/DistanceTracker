@@ -16,8 +16,8 @@ object Permissions {
     // Do we have the permission to access the location using Fine + Coarse?
     fun hasLocationPermission(context: Context) = EasyPermissions.hasPermissions(
         context,
-        android.Manifest.permission.ACCESS_FINE_LOCATION,
-        android.Manifest.permission.ACCESS_COARSE_LOCATION
+        android.Manifest.permission.ACCESS_FINE_LOCATION
+        // android.Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
     // Request the permission to access the location using Fine + Coarse
@@ -27,14 +27,14 @@ object Permissions {
             fragment,
             "This application cannot work without Location Permission",
             PERMISSION_LOCATION_REQUEST_CODE,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+            // android.Manifest.permission.ACCESS_COARSE_LOCATION
         )
 
     }
 
     /**
-     * 02 Background Location
+     * 02 Background Location Permission
      */
 
     // Do we have the background location permission?
