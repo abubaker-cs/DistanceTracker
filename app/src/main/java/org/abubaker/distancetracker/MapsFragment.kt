@@ -1,10 +1,12 @@
 package org.abubaker.distancetracker
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +15,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.coroutines.delay
@@ -38,7 +39,6 @@ class MapsFragment : Fragment(),
     private val binding get() = _binding!!
 
     private lateinit var map: GoogleMap
-    private lateinit var cameraPosition: CameraPosition
 
     // The entry point to the Fused Location Provider.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -150,8 +150,10 @@ class MapsFragment : Fragment(),
         // We are checking if we have background location permission
         if (hasBackgroundLocationPermission(requireContext())) {
 
+            startCountDown()
+
             // This will display the MY LOCATION BUTTON on the map
-            map.isMyLocationEnabled = true
+            // map.isMyLocationEnabled = true
 
             Log.d("MapsFragment", "Already Enabled")
 
@@ -165,6 +167,65 @@ class MapsFragment : Fragment(),
             requestBackgroundLocationPermission(this)
 
         }
+    }
+
+    private fun startCountDown() {
+
+        binding.tvTimer.show()
+        binding.btnStop.disable()
+
+        // Should be triggered every second but remain for 3 seconds
+        val timer: CountDownTimer = object : CountDownTimer(4000, 1000) {
+
+            // This will be called every second
+            override fun onTick(millisUntilFinished: Long) {
+
+                // It will have the value from 3, 2, 1
+                val currentSeconds = millisUntilFinished / 1000
+
+                if (currentSeconds.toString() == "0") {
+
+                    // Update the text
+                    binding.tvTimer.text = "GO!"
+
+                    // Update the color = Black
+                    binding.tvTimer.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+
+                } else {
+
+                    // Update the text
+                    binding.tvTimer.text = currentSeconds.toString()
+
+                    // Update the color = Red
+                    binding.tvTimer.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.red
+                        )
+                    )
+
+                }
+
+            }
+
+            // This will be called when the timer is finished
+            override fun onFinish() {
+
+                // Hide the counter once the timer will be completed
+                binding.tvTimer.hide()
+
+            }
+
+        }
+
+        // Start the timer
+        timer.start()
+
     }
 
     // Button: Stop
