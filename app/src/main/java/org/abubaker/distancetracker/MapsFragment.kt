@@ -1,5 +1,6 @@
 package org.abubaker.distancetracker
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -20,6 +21,8 @@ import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.abubaker.distancetracker.databinding.FragmentMapsBinding
+import org.abubaker.distancetracker.service.TrackerService
+import org.abubaker.distancetracker.util.Constants.ACTION_SERVICE_START
 import org.abubaker.distancetracker.util.ExtensionFunctions.disable
 import org.abubaker.distancetracker.util.ExtensionFunctions.hide
 import org.abubaker.distancetracker.util.ExtensionFunctions.show
@@ -216,6 +219,8 @@ class MapsFragment : Fragment(),
             // This will be called when the timer is finished
             override fun onFinish() {
 
+                sendActionCommandToService(ACTION_SERVICE_START)
+
                 // Hide the counter once the timer will be completed
                 binding.tvTimer.hide()
 
@@ -227,6 +232,21 @@ class MapsFragment : Fragment(),
         timer.start()
 
     }
+
+    // Background Service
+    private fun sendActionCommandToService(action: String) {
+
+        // Intent to start the TrackerService
+        Intent(
+            requireContext(),
+            TrackerService::class.java
+        ).also {
+            it.action = action
+            requireContext().startService(it)
+        }
+
+    }
+
 
     // Button: Stop
     private fun onStopButtonClicked() {
