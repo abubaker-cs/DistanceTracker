@@ -12,6 +12,7 @@ import org.abubaker.distancetracker.util.Constants.ACTION_SERVICE_START
 import org.abubaker.distancetracker.util.Constants.ACTION_SERVICE_STOP
 import org.abubaker.distancetracker.util.Constants.NOTIFICATION_CHANNEL_ID
 import org.abubaker.distancetracker.util.Constants.NOTIFICATION_CHANNEL_NAME
+import org.abubaker.distancetracker.util.Constants.NOTIFICATION_ID
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -66,6 +67,24 @@ class TrackerService : LifecycleService() {
         }
 
         return super.onStartCommand(intent, flags, startId)
+
+    }
+
+    //
+    private fun startForeground() {
+
+        // Create a notification channel
+        createNotificationChannel()
+
+        // Start the service in foreground
+        startForeground(
+
+            // Notification ID = 3
+            NOTIFICATION_ID,
+
+            // Build the notification
+            notification.build()
+        )
 
     }
 

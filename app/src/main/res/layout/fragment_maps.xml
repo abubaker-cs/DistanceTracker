@@ -8,7 +8,7 @@
 
         <variable
             name="tracking"
-            type="org.abubaker.distancetracker.MapsFragment"
+            type="org.abubaker.distancetracker.ui.maps.MapsFragment"
             />
 
     </data>
@@ -29,7 +29,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MapsFragment"
+            tools:context=".ui.maps.MapsFragment"
             tools:layout="@layout/fragment_maps"
             />
 

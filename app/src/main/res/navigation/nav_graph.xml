@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/permissionFragment"
-        android:name="org.abubaker.distancetracker.PermissionFragment"
+        android:name="org.abubaker.distancetracker.ui.permission.PermissionFragment"
         android:label="fragment_permission"
         tools:layout="@layout/fragment_permission"
         >
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="org.abubaker.distancetracker.MapsFragment"
+        android:name="org.abubaker.distancetracker.ui.maps.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps"
         >
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="org.abubaker.distancetracker.ResultFragment"
+        android:name="org.abubaker.distancetracker.ui.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result"
         >

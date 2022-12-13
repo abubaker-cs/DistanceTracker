@@ -1,4 +1,4 @@
-package org.abubaker.distancetracker
+package org.abubaker.distancetracker.ui.permission
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
+import org.abubaker.distancetracker.R
 import org.abubaker.distancetracker.databinding.FragmentPermissionBinding
 import org.abubaker.distancetracker.util.Permissions.hasLocationPermission
 import org.abubaker.distancetracker.util.Permissions.requestLocationPermission

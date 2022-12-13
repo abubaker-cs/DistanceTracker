@@ -1,10 +1,11 @@
-package org.abubaker.distancetracker
+package org.abubaker.distancetracker.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import org.abubaker.distancetracker.R
 import org.abubaker.distancetracker.databinding.ActivityMainBinding
 import org.abubaker.distancetracker.util.Permissions.hasLocationPermission
 

@@ -13,8 +13,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
-import org.abubaker.distancetracker.MainActivity
 import org.abubaker.distancetracker.R
+import org.abubaker.distancetracker.ui.MainActivity
 import org.abubaker.distancetracker.util.Constants.NOTIFICATION_CHANNEL_ID
 import org.abubaker.distancetracker.util.Constants.PENDING_INTENT_REQUEST_CODE
 

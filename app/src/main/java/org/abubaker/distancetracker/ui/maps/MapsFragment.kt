@@ -1,4 +1,4 @@
-package org.abubaker.distancetracker
+package org.abubaker.distancetracker.ui.maps
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,9 +18,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.abubaker.distancetracker.R
 import org.abubaker.distancetracker.databinding.FragmentMapsBinding
 import org.abubaker.distancetracker.service.TrackerService
 import org.abubaker.distancetracker.util.Constants.ACTION_SERVICE_START
@@ -30,7 +30,6 @@ import org.abubaker.distancetracker.util.ExtensionFunctions.show
 import org.abubaker.distancetracker.util.Permissions.hasBackgroundLocationPermission
 import org.abubaker.distancetracker.util.Permissions.requestBackgroundLocationPermission
 
-@AndroidEntryPoint
 class MapsFragment : Fragment(),
     OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener,
