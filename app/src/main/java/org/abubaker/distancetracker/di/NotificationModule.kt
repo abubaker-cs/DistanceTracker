@@ -24,8 +24,8 @@ object NotificationModule {
 
     // Function to create a notification
     @SuppressLint("UnspecifiedImmutableFlag")
-    @ServiceScoped
-    @Provides
+    @ServiceScoped // Scoped to our tracker service
+    @Provides // This is used for classes that we do not own, so dagger library will know how to provide them
     fun providePendingIntent(
         @ApplicationContext context: Context
     ): PendingIntent {
@@ -106,7 +106,7 @@ object NotificationModule {
         @ApplicationContext context: Context
     ): NotificationManager {
 
-        // Create a notification manager
+        // Return the notification manager
         return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     }
