@@ -3,9 +3,11 @@ package org.abubaker.distancetracker.service
 import android.content.Intent
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.AndroidEntryPoint
 import org.abubaker.distancetracker.util.Constants.ACTION_SERVICE_START
 import org.abubaker.distancetracker.util.Constants.ACTION_SERVICE_STOP
 
+@AndroidEntryPoint
 class TrackerService : LifecycleService() {
 
     companion object {
