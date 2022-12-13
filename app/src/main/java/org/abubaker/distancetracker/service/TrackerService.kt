@@ -69,6 +69,7 @@ class TrackerService : LifecycleService() {
 
     }
 
+    // NOTE: On API Levels < 26 (Android 8.0) this notification channel is not needed
     private fun createNotificationChannel() {
 
         // Check if the device is running on Android 8.0 (API level 26) or higher
